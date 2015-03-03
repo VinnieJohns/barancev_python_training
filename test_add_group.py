@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# first training test for adding a group, made with SeleniumBuilder
 from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.common.action_chains import ActionChains
 import time, unittest
