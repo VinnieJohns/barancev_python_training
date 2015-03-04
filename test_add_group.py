@@ -12,7 +12,7 @@ def is_alert_present(wd):
     except:
         return False
 
-class buildedtest1(unittest.TestCase):
+class test_add_group(unittest.TestCase):
     def setUp(self):
         self.wd = WebDriver()
         self.wd.implicitly_wait(60)
