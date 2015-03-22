@@ -20,6 +20,6 @@ def test_test_add_contact(app):
                           anniversary_date_day=23, anniversary_date_month="April", anniversary_date_year=2014,
                           secondary_address="Synyavinskaya st. 3/12", secondary_home_phone="200-500-1",
                           notes="Here should be some notes. Someday.")
-    app.login(username="admin", password="secret")
+    app.session.login(username="admin", password="secret")
     app.create_contact(new_contact)
-    app.logout()
+    app.session.logout()
