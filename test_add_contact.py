@@ -78,23 +78,20 @@ class test_add_contact(unittest.TestCase):
         wd.find_element_by_name("homepage").click()
         wd.find_element_by_name("homepage").clear()
         wd.find_element_by_name("homepage").send_keys(contact.homepage)
-        '''
-        here comes some datetime magic:
-        transforming months from birthday & anniversary dates from int to text value for further use in locators
-        '''
-        birthdate_text_month = contact.birth_date.strftime("%B")
-        annivarsary_text_month = contact.anniversary_date.strftime("%B")
-
-        wd.find_element_by_css_selector("select[name='bday'] option[value='" + str(contact.birth_date.day) + "']").click()
-        wd.find_element_by_css_selector("select[name='bmonth'] option[value='" + birthdate_text_month + "']").click()
+        wd.find_element_by_css_selector(
+            "select[name='bday'] option[value='" + str(contact.birth_date_day) + "']").click()
+        wd.find_element_by_css_selector(
+            "select[name='bmonth'] option[value='" + str(contact.birth_date_month) + "']").click()
         wd.find_element_by_name("byear").click()
         wd.find_element_by_name("byear").clear()
-        wd.find_element_by_name("byear").send_keys(contact.birth_date.year)
-        wd.find_element_by_css_selector("select[name='aday'] option[value='" + str(contact.anniversary_date.day) + "']").click()
-        wd.find_element_by_css_selector("select[name='amonth'] option[value='" + annivarsary_text_month + "']").click()
+        wd.find_element_by_name("byear").send_keys(contact.birth_date_year)
+        wd.find_element_by_css_selector(
+            "select[name='aday'] option[value='" + str(contact.anniversary_date_day) + "']").click()
+        wd.find_element_by_css_selector(
+            "select[name='amonth'] option[value='" + str(contact.anniversary_date_month) + "']").click()
         wd.find_element_by_name("ayear").click()
         wd.find_element_by_name("ayear").clear()
-        wd.find_element_by_name("ayear").send_keys(contact.anniversary_date.year)
+        wd.find_element_by_name("ayear").send_keys(contact.anniversary_date_year)
         wd.find_element_by_name("address2").click()
         wd.find_element_by_name("address2").clear()
         wd.find_element_by_name("address2").send_keys(contact.secondary_address)
@@ -121,9 +118,10 @@ class test_add_contact(unittest.TestCase):
                               title="title", company="ACME LTD", address="Synyavinskaya st. 12/3", home_tel="100-500-1",
                               mobile_tel="+7(999) 100-500-2", work_tel="200-1000", fax="fax",
                               email_2="lname@company.com", email_3="nickname@example.org",
-                              homepage="http://homepage.net", birth_date=date(1984, 4, 12),
-                              anniversary_date=date(1999, 3, 8), secondary_address="Svynyavinskaya st. 3/12",
-                              secondary_home_phone="200-500-1", notes="Here should be some notes. Somewhen.")
+                              homepage="http://homepage.net", birth_date_day=12, birth_date_month="March",
+                              birth_date_year=1987, anniversary_date_day=23, anniversary_date_month="April",
+                              anniversary_date_year=2014, secondary_address="Synyavinskaya st. 3/12",
+                              secondary_home_phone="200-500-1", notes="Here should be some notes. Someday.")
         self.open_home_page(wd)
         self.login(wd, username="admin", password="secret")
         self.open_add_new_contact_page(wd)
