@@ -21,5 +21,5 @@ def test_test_add_contact(app):
                           secondary_address="Synyavinskaya st. 3/12", secondary_home_phone="200-500-1",
                           notes="Here should be some notes. Someday.")
     app.session.login(username="admin", password="secret")
-    app.create_contact(new_contact)
+    app.contact.create(new_contact)
     app.session.logout()
