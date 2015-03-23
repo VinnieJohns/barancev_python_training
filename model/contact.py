@@ -2,10 +2,11 @@ __author__ = 'VinnieJohns'
 
 
 class Contact:
-    def __init__(self, fname, midname, lname, nickname, title, company, address, home_tel, mobile_tel, work_tel,
-                 fax, email, email_2, email_3, homepage, birth_date_day, birth_date_month, birth_date_year,
-                 anniversary_date_day, anniversary_date_month, anniversary_date_year, secondary_address,
-                 secondary_home_phone, notes):
+    def __init__(self, fname=None, midname=None, lname=None, nickname=None, title=None, company=None, address=None,
+                 home_tel=None, mobile_tel=None, work_tel=None, fax=None, email=None, email_2=None, email_3=None,
+                 homepage=None, birth_date_day=None, birth_date_month=None, birth_date_year=None,
+                 anniversary_date_day=None, anniversary_date_month=None, anniversary_date_year=None,
+                 secondary_address=None, secondary_home_phone=None, notes=None):
         self.fname = fname
         self.midname = midname
         self.lname = lname
