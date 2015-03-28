@@ -15,4 +15,6 @@ def test_modify_first_contact(app):
                                birth_date_year=1974, anniversary_date_day=18, anniversary_date_month="july",
                                anniversary_date_year=1999, secondary_address="Aptekarskaya. 99/33",
                                secondary_home_phone="modsecphone", notes="Modified notes.")
+    if app.contact.count() == 0:
+        app.contact.create(Contact(fname="pleasedeleteme"))
     app.contact.modify_first_contact(new_contact_data)
