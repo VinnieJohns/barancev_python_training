@@ -8,7 +8,8 @@ class ContactHelper:
 
     def open_add_new_contact_page(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("add new").click()
+        if not (wd.current_url.endswith("/edit.php") and len(wd.find_elements_by_name("submit")) > 0):
+            wd.find_element_by_link_text("add new").click()
 
     def select_value_from_dropdown(self, dropdown_name, value):
         wd = self.app.wd
@@ -71,7 +72,8 @@ class ContactHelper:
 
     def open_home_page_by_nav(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("home").click()
+        if not (wd.current_url.endswith("/addressbook/")):
+            wd.find_element_by_link_text("home").click()
 
     def count(self):
         wd = self.app.wd
