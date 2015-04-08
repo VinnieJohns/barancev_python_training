@@ -4,6 +4,9 @@ from model.contact import Contact
 
 class ContactHelper:
 
+    # variable for storing list of groups
+    contacts_cache = None
+
     def __init__(self, app):
         self.app = app
 
@@ -51,6 +54,7 @@ class ContactHelper:
         self.fill_contact_form(contact)
         wd.find_element_by_css_selector("div[id='content'] form input[name='submit']").click()
         self.open_home_page_by_nav()
+        self.contacts_cache = None
 
     def modify_first_contact(self, new_contact_data):
         wd = self.app.wd
@@ -59,6 +63,7 @@ class ContactHelper:
         self.fill_contact_form(new_contact_data)
         wd.find_element_by_css_selector("div[id='content'] form input[name='update']").click()
         self.open_home_page_by_nav()
+        self.contacts_cache = None
 
     def delete_first_contact(self):
         wd = self.app.wd
@@ -69,6 +74,7 @@ class ContactHelper:
         wd.find_element_by_css_selector("input[value='Delete']").click()
         wd.switch_to_alert().accept()
         self.open_home_page_by_nav()
+        self.contacts_cache = None
 
     def open_home_page_by_nav(self):
         wd = self.app.wd
@@ -81,12 +87,13 @@ class ContactHelper:
         return len(wd.find_elements_by_name("selected[]"))
 
     def get_contacts_list(self):
-        wd = self.app.wd
-        self.open_home_page_by_nav()
-        contacts = []
-        for elem in wd.find_elements_by_name("entry"):
-            lname = elem.find_elements_by_css_selector("td")[1].text
-            fname = elem.find_elements_by_css_selector("td")[2].text
-            id = elem.find_element_by_name("selected[]").get_attribute('id')
-            contacts.append(Contact(fname=fname, lname=lname, id=id))
-        return contacts
+        if self.contacts_cache is None:
+            wd = self.app.wd
+            self.open_home_page_by_nav()
+            self.contacts_cache = []
+            for elem in wd.find_elements_by_name("entry"):
+                lname = elem.find_elements_by_css_selector("td")[1].text
+                fname = elem.find_elements_by_css_selector("td")[2].text
+                id = elem.find_element_by_name("selected[]").get_attribute('id')
+                self.contacts_cache.append(Contact(fname=fname, lname=lname, id=id))
+        return list(self.contacts_cache)
