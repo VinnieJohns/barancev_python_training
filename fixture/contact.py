@@ -1,7 +1,8 @@
 __author__ = 'VinnieJohns'
+from model.contact import Contact
+
 
 class ContactHelper:
-
 
     def __init__(self, app):
         self.app = app
@@ -43,7 +44,6 @@ class ContactHelper:
         self.app.session.change_field_value("phone2", contact.secondary_home_phone)
         self.app.session.change_field_value("notes", contact.notes)
 
-
     def create(self, contact):
         wd = self.app.wd
         self.open_add_new_contact_page()
@@ -55,7 +55,7 @@ class ContactHelper:
     def modify_first_contact(self, new_contact_data):
         wd = self.app.wd
         self.open_home_page_by_nav()
-        wd.find_element_by_css_selector("tr[name='entry'] td.center img[title='Edit']").click()
+        wd.find_element_by_css_selector("img[title='Edit']").click()
         self.fill_contact_form(new_contact_data)
         wd.find_element_by_css_selector("div[id='content'] form input[name='update']").click()
         self.open_home_page_by_nav()
@@ -79,3 +79,14 @@ class ContactHelper:
         wd = self.app.wd
         self.open_home_page_by_nav()
         return len(wd.find_elements_by_name("selected[]"))
+
+    def get_contacts_list(self):
+        wd = self.app.wd
+        self.open_home_page_by_nav()
+        contacts = []
+        for elem in wd.find_elements_by_name("entry"):
+            lname = elem.find_elements_by_css_selector("td")[1].text
+            fname = elem.find_elements_by_css_selector("td")[2].text
+            id = elem.find_element_by_name("selected[]").get_attribute('id')
+            contacts.append(Contact(fname=fname, lname=lname, id=id))
+        return contacts
