@@ -18,7 +18,7 @@ class SessionHelper:
         self.app.open_home_page()
         self.change_field_value("user", username)
         self.change_field_value("pass", password)
-        wd.find_element_by_css_selector("input[type=\"submit\"]").click()
+        wd.find_element_by_css_selector('input[type="submit"]').click()
 
     def logout(self):
         wd = self.app.wd
@@ -28,9 +28,12 @@ class SessionHelper:
         wd = self.app.wd
         return len(wd.find_elements_by_link_text("Logout")) > 0
 
-    def is_logged_in_as(self, username):
+    def get_logged_user(self):
         wd = self.app.wd
-        return wd.find_element_by_css_selector('div[id="top"] form[name="logout"] b').text == "(" + username + ")"
+        return wd.find_element_by_css_selector('div[id="top"] form[name="logout"] b').text[1:-1]
+
+    def is_logged_in_as(self, username):
+        return self.get_logged_user() == username
 
     def ensure_login(self, username, password):
         if self.is_logged_in():
