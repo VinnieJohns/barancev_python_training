@@ -26,34 +26,34 @@ for o, a in opts:
 
 def random_string(prefix, maxlen):
     # ' sign and double-spaces are replaced to avoid known failures
-    symbols = string.ascii_letters + string.digits + string.punctuation.replace("'", "") + " "*10
+    symbols = string.ascii_letters + string.digits
     return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))]).replace("  ", " ")
 
 
 testdata = [
-    Contact(fname=random.choice(["", support.random_string("fname", 10)]),
-            midname=random.choice(["", support.random_string("mname", 15)]),
-            lname=random.choice(["", support.random_string("lname", 20)]),
-            nickname=random.choice(["", support.random_string("nickname", 10)]),
-            title=random.choice(["", support.random_string("title", 10)]),
-            company=random.choice(["", support.random_string("company", 25)]),
-            address=random.choice(["", support.random_string("address", 30)]),
-            home_tel=random.choice(["", support.random_string("home_tel", 10)]),
-            mobile_tel=random.choice(["", support.random_string("mobile_tel", 10)]),
-            work_tel=random.choice(["", support.random_string("work_tel", 10)]),
-            fax=random.choice(["", support.random_string("fax", 10)]),
-            email_2=random.choice(["", support.random_string("email2", 10)]),
-            email_3=random.choice(["", support.random_string("email3", 10)]),
-            homepage=random.choice(["", support.random_string("homepage", 10)]),
+    Contact(fname=random.choice(["", random_string("fname", 10)]),
+            midname=random.choice(["", random_string("mname", 15)]),
+            lname=random.choice(["", random_string("lname", 20)]),
+            nickname=random.choice(["", random_string("nickname", 10)]),
+            title=random.choice(["", random_string("title", 10)]),
+            company=random.choice(["", random_string("company", 25)]),
+            address=random.choice(["", random_string("address", 30)]),
+            home_tel=random.choice(["", random_string("home_tel", 10)]),
+            mobile_tel=random.choice(["", random_string("mobile_tel", 10)]),
+            work_tel=random.choice(["", random_string("work_tel", 10)]),
+            fax=random.choice(["", random_string("fax", 10)]),
+            email_2=random.choice(["", random_string("email2", 5)]),
+            email_3=random.choice(["", random_string("email3", 5)]),
+            homepage=random.choice(["", random_string("homepage", 5)]),
             birth_date_day=random.randrange(0, 32),
             birth_date_month=random.choice(["-", random.choice(support.months_list)]),
             birth_date_year=random.choice(["", random.randrange(1898, 2015)]),
             anniversary_date_day=random.randrange(0, 32),
             anniversary_date_month=random.choice(["-", random.choice(support.months_list)]),
             anniversary_date_year=random.choice(["", random.randrange(1898, 2015)]),
-            secondary_address=random.choice(["", support.random_string("secaddress", 30)]),
-            secondary_home_phone=random.choice(["", support.random_string("phone2", 10)]),
-            notes=random.choice(["", support.random_string("notes", 100)]))
+            secondary_address=random.choice(["", random_string("secaddress", 30)]),
+            secondary_home_phone=random.choice(["", random_string("phone2", 10)]),
+            notes=random.choice(["", random_string("notes", 100)]))
     for i in range(n)
     ] + [Contact(fname="", lname="")]
 

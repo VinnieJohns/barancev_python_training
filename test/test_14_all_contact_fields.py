@@ -4,10 +4,10 @@ from random import randrange
 import re
 
 
-def test_14_all_contact_fields(app):
-    if app.contact.count() == 0:
+def test_14_all_contact_fields(app, db):
+    if len(db.get_contacts_list()) == 0:
         app.contact.create(Contact(fname="pleasedeleteme"))
-    contacts = app.contact.get_contacts_list()
+    contacts = db.get_contacts_list()
     index = randrange(len(contacts))
     contact_from_home_page = contacts[index]
     contact_from_edit_page = app.contact.get_contact_info_from_edit_page(index)

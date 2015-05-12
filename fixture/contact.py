@@ -182,7 +182,7 @@ class ContactHelper:
                 address = elem.find_elements_by_css_selector("td")[3].text
                 all_emails = elem.find_elements_by_css_selector("td")[4].text
                 all_phones = elem.find_elements_by_css_selector("td")[5].text
-                self.contacts_cache.append(Contact(fname=fname, lname=lname, id=id, address=address,
+                self.contacts_cache.append(Contact(fname=fname, lname=lname, id=str(id), address=address,
                                                    all_emails_from_homepage=all_emails,
                                                    all_phones_from_homepage=all_phones))
         return list(self.contacts_cache)
