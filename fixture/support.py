@@ -6,7 +6,7 @@ import string
 def random_string(prefix, maxlen):
     # ' and spaces signs are replaced to avoid known failures
     symbols = string.ascii_letters + string.digits + string.punctuation.replace("'", "") + " "*10
-    return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))]).replace(" ", "")
+    return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))]).replace("  ", " ")
 
 months_list = ["January", "February", "March",
                "April", "May", "June",

@@ -1,17 +1,18 @@
 __author__ = 'VinnieJohns'
 from model.group import Group
-from random import randrange
+import random
 
 
-def test_modify_random_group(app):
-    if app.group.count() == 0:
+def test_modify_random_group(app, db, check_ui):
+    if len(db.get_group_list()) == 0:
         app.group.create(Group(name="pleaseModifyMeme"))
-    old_groups = app.group.get_group_list()
-    group = Group(name="mod_name03", header="mod_header13", footer="mod_footer23")
-    index = randrange(len(old_groups))
-    group.id = old_groups[index].id
-    app.group.modify_group_by_index(index, group)
-    assert len(old_groups) == app.group.count()
-    new_groups = app.group.get_group_list()
-    old_groups[index] = group
+    old_groups = db.get_group_list()
+    group = random.choice(old_groups)
+    new_group = Group(id=group.id, name="mod_name05", header="mod_header153", footer="mod_footer523")
+    app.group.modify_group_by_id(group.id, new_group)
+    new_groups = db.get_group_list()
+    index = old_groups.index(group)
+    old_groups[index] = new_group
     assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
+    if check_ui:
+        assert sorted(new_groups, key=Group.id_or_max) == sorted(app.group.get_group_list(), key=Group.id_or_max)

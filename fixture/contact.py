@@ -126,6 +126,15 @@ class ContactHelper:
         self.open_home_page_by_nav()
         self.contacts_cache = None
 
+    def modify_contact_by_id(self, id, new_contact_data):
+        wd = self.app.wd
+        self.open_home_page_by_nav()
+        wd.find_element_by_css_selector("a[href='edit.php?id=%s']" % id).click()
+        self.fill_contact_form(new_contact_data)
+        wd.find_element_by_css_selector("div[id='content'] form input[name='update']").click()
+        self.open_home_page_by_nav()
+        self.contacts_cache = None
+
     def delete_first_contact(self):
         self.delete_contact_by_index(0)
 
@@ -134,6 +143,17 @@ class ContactHelper:
         self.open_home_page_by_nav()
         # select first contact
         wd.find_elements_by_name("selected[]")[index].click()
+        # submit deletion
+        wd.find_element_by_css_selector("input[value='Delete']").click()
+        wd.switch_to_alert().accept()
+        self.open_home_page_by_nav()
+        self.contacts_cache = None
+
+    def delete_contact_by_id(self, id):
+        wd = self.app.wd
+        self.open_home_page_by_nav()
+        # select first contact
+        wd.find_element_by_id(id).click()
         # submit deletion
         wd.find_element_by_css_selector("input[value='Delete']").click()
         wd.switch_to_alert().accept()
